@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# jninstaller
+# Ben Winston (winsbe01@gmail.com)
+# An installer script fot the jn command-line journal tool
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+
+# You should have recieved a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+# our jn script
+jnFILE=jn
+
+#make the directory and install
+echo "Making directory and moving files..."
+mkdir ~/.journal
+cp $jnFILE ~/.journal/
+
+#create the journal file
+echo "Creating journal..."
+touch ~/.journal/journal
+echo "*****************" >> ~/.journal/journal
+echo "* Daily Journal *" >> ~/.journal/journal
+echo -e "*****************\n~~~~~" >> ~/.journal/journal
+
+#ask which editor to use when updating journal
+echo -ne "Preferred Editor: "
+read jneditor
+
+#update .bashrc
+echo "Updating bashrc..."
+bashRC=~/.bashrc
+touch $bashRC
+echo -e "\n# Settings for jn" >> $bashRC
+echo "export JNEDITOR='$jneditor'" >> $bashRC
+echo "alias jn='~/.journal/jn'" >> $bashRC
+source $bashRC
+echo -e "Done! For help, type jn -h. All files located in ~/.journal/\n"
+echo "IMPORTANT: run 'source .bashrc' before your first entry, insuring all environmental variables are set"

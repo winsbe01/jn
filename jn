@@ -1,0 +1,71 @@
+#!/bin/bash
+
+# journal 0.3.1
+# Ben Winston (winsbe01@gmail.com)
+# A simple command-line journal tool.
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of 
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>
+
+# the file where our journal is located
+journal=~/.journal/journal
+
+# 'jn' or 'jn -u' -> update the journal
+if [ $# -eq 0 ] || [ "$1" = "-u" ]; then
+	clear
+	echo -e "You will now be taken into $JNEDITOR, where you may compose your journal entry.\n\n"
+	read -p "Press enter to continue..."
+
+    # where we'll store the entry (temporarily)
+	tmpfile=/tmp/$(date +%s)
+	touch $tmpfile
+
+    # opens the editor to tmpfile for the entry
+    # will hold until the user quits
+	$JNEDITOR $tmpfile
+
+    # touch it in case it hasn't been created yet
+	touch ~/.journal/journal
+
+    # add date/timestamp to the entry
+	echo -e "$(date +%A) $(date +%B) $(date +%d), $(date +%Y) at $(date +%r):\n" >> $journal
+	cat $tmpfile >> $journal
+
+    # A delimiter...hopefully helpful when search is implemented
+	echo -e "\n~~~~~\n" >> $journal
+
+    # clean up after ourselves
+	rm $tmpfile
+	echo "Thanks for the update!"
+
+# 'jn -h' -> help
+elif [ "$1" = "-h" ]; then
+	echo "jn 0.3.1"
+	echo -e "command: jn [options]\n"
+	echo "  -b => browse the journal"
+	echo "  -h => brings you to this help screen"
+	echo "  -u => update journal (same as no arguments)"
+
+# 'jn -b' -> browse the journal
+elif [ "$1" = "-b" ]; then
+	if [ $# -ne 1 ]; then
+		echo "command: jn -b"
+	else
+		cat $journal | less
+	fi
+
+# not a command
+else
+	echo "That's not (currently) and option!"
+	echo "Type jn -h for the help screen."
+fi

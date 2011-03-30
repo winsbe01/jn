@@ -1,0 +1,35 @@
+jn 0.3.1
+by Ben Winston (winsbe01@gmail.com)
+
+A simple command-line journal tool.
+
+REQUIREMENTS:
+ - less
+ - sed
+ - any text editor
+
+TO INSTALL:
+ - run the jninstaller script and follow the on-screen instructions
+	you@your-machine~$ ./jninstaller
+ - re-source your .bashrc file to make sure everything got set up correctly
+	you@your-machine~$ source .bashrc
+
+TO RUN:
+ - run 'jn' or 'jn -u' and you will be brought into the editor you chose to make your entry
+	you@your-machine~$ jn
+ - for help, type 'jn -h'
+ - to browse the whole journal, type 'jn -b'
+
+CHANGELOG:
+0.3.1:
+ - BUGFIX: in jninstaller, changed "JNEDITOR='$jneditor'" to "export JNEDITOR='$jneditor'"
+
+0.3:
+ - added browsing feature to view the entire journal
+ - now using a user-chosen editor to fill out the journal, instead of reading from stdin
+ - removed a "search" feature -> will be implemented in a future version, but the first version was too simplistic to be useful
+
+TODO:
+ - add a more thorough search feature (i.e. will print out the entire paragraph or entry that a search term/phrase appears in)
+ - add a date search (give it any of a month, day, etc. and the matching entries will be printed)
+ - figure out how to get it so new installs won't have to run 'source .bashrc'
