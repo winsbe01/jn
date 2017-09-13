@@ -1,4 +1,4 @@
-jn 0.3.1
+jn 0.3.2
 by Ben Winston (winsbe01@gmail.com)
 
 A simple command-line journal tool.
@@ -21,6 +21,9 @@ TO RUN:
  - to browse the whole journal, type 'jn -b'
 
 CHANGELOG:
+0.3.2:
+- removed unnecessary cat
+
 0.3.1:
  - BUGFIX: in jninstaller, changed "JNEDITOR='$jneditor'" to "export JNEDITOR='$jneditor'"
 
