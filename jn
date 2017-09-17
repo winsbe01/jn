@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# journal 0.3.1
+# journal 0.3.2
 # Ben Winston (winsbe01@gmail.com)
 # A simple command-line journal tool.
 
@@ -41,7 +41,7 @@ if [ $# -eq 0 ] || [ "$1" = "-u" ]; then
 	echo -e "$(date +%A) $(date +%B) $(date +%d), $(date +%Y) at $(date +%r):\n" >> $journal
 	cat $tmpfile >> $journal
 
-    # A delimiter...hopefully helpful when search is implemented
+    # A delimiter ... separator for search
 	echo -e "\n~~~~~\n" >> $journal
 
     # clean up after ourselves
@@ -50,22 +50,32 @@ if [ $# -eq 0 ] || [ "$1" = "-u" ]; then
 
 # 'jn -h' -> help
 elif [ "$1" = "-h" ]; then
-	echo "jn 0.3.1"
+	echo "jn 0.3.2"
 	echo -e "command: jn [options]\n"
 	echo "  -b => browse the journal"
 	echo "  -h => brings you to this help screen"
+	echo "  -s => search the journal for one or two terms"
 	echo "  -u => update journal (same as no arguments)"
 
+# 'jn -s' -> search
+elif [ "$1" = "-s" ]; then
+	# 2 terms allows for searching for date information, i.e., September 2017
+	awk -v pattern="$2.*$3" '
+	BEGIN {RS="~~~~~"}
+	$0 ~ pattern
+        ' $journal
+     
 # 'jn -b' -> browse the journal
 elif [ "$1" = "-b" ]; then
 	if [ $# -ne 1 ]; then
 		echo "command: jn -b"
 	else
-		cat $journal | less
+	# drop need for less - let user pick pager	
+		cat $journal
 	fi
 
 # not a command
 else
-	echo "That's not (currently) and option!"
+	echo "That's not (currently) an option!"
 	echo "Type jn -h for the help screen."
 fi
