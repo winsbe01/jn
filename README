@@ -1,17 +1,14 @@
-jn 0.3.2
+jn 0.3.3
 by Ben Winston (winsbe01@gmail.com)
 
 A simple command-line journal tool.
 
 REQUIREMENTS:
  - awk (for search)
- - any text editor
+ - any text editor set in $EDITOR
 
 TO INSTALL:
- - run the jninstaller script and follow the on-screen instructions
-	you@your-machine~$ ./jninstaller
- - re-source your .bashrc file to make sure everything got set up correctly
-	you@your-machine~$ source .bashrc
+ - copy jn into a folder in your path, e.g., $HOME/bin if that is part of $PATH, and make executable
 
 TO RUN:
  - run 'jn' or 'jn -u' and you will be brought into the editor you chose to make your entry
@@ -21,6 +18,10 @@ TO RUN:
  - to browse the whole journal, type 'jn -b'
 
 CHANGELOG:
+0.3.3:
+- alternate XDG support
+- removed need for jninstaller
+
 0.3.2:
 - removed less
 - implemented search using awk
