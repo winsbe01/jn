@@ -3,7 +3,7 @@
 # journal
 AUTHOR="Ben Winston"
 CONTACT="<winsbe01@gmail.com>"
-VERSION="0.3.3"
+VERSION="0.3.4"
 # A simple command-line journal tool.
 
 # This program is free software: you can redistribute it and/or modify
@@ -91,11 +91,19 @@ elif [ "$1" = "-h" ]; then
 
 # 'jn -s' -> search
 elif [ "$1" = "-s" ]; then
-	# 2 terms allows for searching for date information, i.e., September 2017
-	awk -v pattern="$2.*$3" '
-	BEGIN {RS="~~~~~"}
-	$0 ~ pattern
-        ' ${journal}
+	if [ $# = 3 ]; then
+		# 2 terms allows for searching for date information, i.e., September 2017
+		awk -v pattern="$2.*$3" '
+		BEGIN {RS="~~~~~"}
+		$0 ~ pattern
+        	' ${journal}
+	elif [ $# = 2 ]; then
+		# only 1 search term entered, i.e., September
+		awk -v pattern="$2" '
+		BEGIN {RS="~~~~~"}
+		$0 ~ pattern
+        	' ${journal}
+	fi
      
 # 'jn -b' -> browse the journal
 elif [ "$1" = "-b" ]; then

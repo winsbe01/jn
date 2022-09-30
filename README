@@ -18,6 +18,9 @@ TO RUN:
  - to browse the whole journal, type 'jn -b'
 
 CHANGELOG:
+0.3.4:
+- fixed search with only one term
+
 0.3.3:
 - alternate XDG support
 - removed need for jninstaller
