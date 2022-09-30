@@ -36,6 +36,3 @@ CHANGELOG:
  - added browsing feature to view the entire journal
  - now using a user-chosen editor to fill out the journal, instead of reading from stdin
  - removed a "search" feature -> will be implemented in a future version, but the first version was too simplistic to be useful
-
-TODO:
- - figure out how to get it so new installs won't have to run 'source .bashrc'
